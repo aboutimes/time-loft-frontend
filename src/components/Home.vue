@@ -1,10 +1,5 @@
 <template>
   <div class="homepage">
-    <div class="login">
-      <a href="#">登陆</a>
-      <a href="#">注册</a>
-      <span class="language"></span>
-    </div>
     <div class="post-simple" v-bind:style="bgSize">
       <div class="foreword-bg">
         <div class="foreword"  v-if="msg.data">
@@ -15,6 +10,12 @@
       <div class="more">
         <a href="#" id="opener"></a>
       </div>
+    </div>
+    <div class="logo">时光阁楼</div>
+    <div class="login">
+      <a href="#">登陆</a>
+      <a href="#">注册</a>
+      <span class="language"></span>
     </div>
     <div>dsfagwedasdfas</div>
   </div>
@@ -60,6 +61,12 @@ export default {
   .homepage {
     position: relative;
   }
+  .logo {
+    position: absolute;
+    left: 5%;
+    top: 5%;
+    font-size: 2em;
+  }
   .login {
     position: absolute;
     right: 20px;
@@ -95,7 +102,7 @@ export default {
 
   .post-simple {
     position: relative;
-    background-image: url('../assets/bg4.jpg');
+    background-image: url('../assets/bg.jpg');
     background-color: #f7f7f7;
     background-repeat: no-repeat;
     background-position: center;
