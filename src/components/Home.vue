@@ -12,6 +12,9 @@
           <h3>{{msg.data[0].content_simple}}...</h3>
         </div>
       </div>
+      <div class="more">
+        <a href="#" id="opener"></a>
+      </div>
     </div>
     <div>dsfagwedasdfas</div>
   </div>
@@ -91,6 +94,7 @@ export default {
   }
 
   .post-simple {
+    position: relative;
     background-image: url('../assets/bg4.jpg');
     background-color: #f7f7f7;
     background-repeat: no-repeat;
@@ -114,5 +118,39 @@ export default {
     bottom: 10%;
     /*background: linear-gradient(to right, rgba(247, 247, 247, 0.8), transparent);*/
     /*background-color: rgba(247, 247, 247, 0.7);*/
+  }
+  #opener:hover {
+    /*-webkit-transition-delay: 0;*/
+    /*transition-delay: 0;*/
+    opacity: 1;
+  }
+  #opener {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    border-bottom: 4px solid rgb(0, 92, 255);
+    border-right: 4px solid rgb(0, 92, 255);
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    -webkit-animation: opener .5s ease-in-out alternate infinite;
+    animation: opener .5s ease-in-out alternate infinite;
+    /*cursor: pointer;*/
+    opacity: 0.5;
+    -webkit-transition: opacity .2s ease-in-out, transform .5s ease-in-out .2s;
+    transition: opacity .2s ease-in-out, transform .5s ease-in-out .2s;
+  }
+  @-webkit-keyframes opener {
+    100% {
+      bottom: 4%
+    }
+  }
+  @keyframes opener {
+    100% {
+      bottom: 4%
+    }
   }
 </style>
