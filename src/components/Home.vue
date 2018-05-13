@@ -12,16 +12,53 @@
       </div>
     </div>
     <div class="logo">时光阁楼</div>
+
+    <div id="nav"  v-bind:style="nav">
+      <div class="menu">
+        <a href="#">首页</a>
+        <a href="#">分类</a>
+        <a href="#">标签</a>
+        <a href="#">足迹</a>
+      </div>
+      <div class="about">this is about</div>
+      <div class="links">
+        <a href="http://isujin.com" target="_blank">素錦</a>
+        <a href="http://sometime.me" target="_blank">寒塘渡月</a>
+        <a href="http://shisanyue.com" target="_blank">拾叁月</a>
+        <a href="http://www.lyh2.com" target="_blank">青筑</a>
+        <a href="http://mir.no/work" target="_blank">MIR.</a>
+        <a href="http://modelo.io" target="_blank">MODELO</a>
+        <a href="https://leonax.net" target="_blank">LEONA+</a>
+        <a href="http://1416.me" target="_blank">1416教室</a>
+        <a href="https://www.fieldevo.com/" target="_blank">Fieldevo</a>
+      </div>
+      <div class="copyright">{{loftTime}}</div>
+    </div>
     <div class="login">
       <a href="#">登陆</a>
       <a href="#">注册</a>
-      <span class="language"></span>
+      <div class="menu-btn" v-on:click="menuStatus()">
+        <span class="btn"></span>
+      </div>
     </div>
-    <div>dsfagwedasdfas</div>
+    <div>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, quos, voluptate, sunt, in suscipit quibusdam quis dignissimos eligendi repellendus ipsam exercitationem adipisci nostrum fugit accusamus quae cum nisi accusantium eaque.
+      </p>
+
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, dolore, impedit eveniet necessitatibus voluptate distinctio quam repellendus voluptates voluptatum inventore rem sapiente minus esse saepe iste harum architecto numquam quis vero dignissimos beatae est id libero adipisci enim odio natus commodi explicabo modi similique nesciunt deserunt vel consectetur velit omnis quaerat corrupti. Cumque, perspiciatis, culpa, reprehenderit laboriosam obcaecati deleniti soluta tempora ipsum ipsam iure temporibus dolore modi quidem cum doloribus ex vel suscipit sapiente ut esse optio voluptates molestias natus nostrum illo nihil quisquam facilis hic atque voluptas quae pariatur placeat officia doloremque quia ea recusandae rem iste asperiores iusto debitis quod incidunt id nemo repellendus itaque. Iure, vel, expedita quam repellendus aliquam fugit autem obcaecati libero reiciendis excepturi officia voluptate molestiae quis itaque consequatur nulla ea sunt facilis cupiditate tempora sequi nam in asperiores! Sunt, maxime at id eaque debitis quasi a possimus eveniet eum velit tempore quidem voluptates expedita quibusdam officiis. Ipsum, quaerat, vero, adipisci enim autem inventore eum maiores consectetur culpa molestiae cumque sed qui dolorem. Placeat, quae deleniti molestiae minima cupiditate quaerat sit est perspiciatis error iste. Ratione, minus, commodi, magni laborum doloribus libero ullam quos tenetur quis molestias ipsam consequuntur harum asperiores culpa nostrum omnis.
+      </p>
+
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur, dolore, impedit eveniet necessitatibus voluptate distinctio quam repellendus voluptates voluptatum inventore rem sapiente minus esse saepe iste harum architecto numquam quis vero dignissimos beatae est id libero adipisci enim odio natus commodi explicabo modi similique nesciunt deserunt vel consectetur velit omnis quaerat corrupti. Cumque, perspiciatis, culpa, reprehenderit laboriosam obcaecati deleniti soluta tempora ipsum ipsam iure temporibus dolore modi quidem cum doloribus ex vel suscipit sapiente ut esse optio voluptates molestias natus nostrum illo nihil quisquam facilis hic atque voluptas quae pariatur placeat officia doloremque quia ea recusandae rem iste asperiores iusto debitis quod incidunt id nemo repellendus itaque. Iure, vel, expedita quam repellendus aliquam fugit autem obcaecati libero reiciendis excepturi officia voluptate molestiae quis itaque consequatur nulla ea sunt facilis cupiditate tempora sequi nam in asperiores! Sunt, maxime at id eaque debitis quasi a possimus eveniet eum velit tempore quidem voluptates expedita quibusdam officiis. Ipsum, quaerat, vero, adipisci enim autem inventore eum maiores consectetur culpa molestiae cumque sed qui dolorem. Placeat, quae deleniti molestiae minima cupiditate quaerat sit est perspiciatis error iste. Ratione, minus, commodi, magni laborum doloribus libero ullam quos tenetur quis molestias ipsam consequuntur harum asperiores culpa nostrum omnis.
+      </p>
+    </div>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'Home',
   data () {
@@ -29,9 +66,35 @@ export default {
       msg: '',
       bgSize:{
         width: '',
-        height: ''
+        height: '',
+        backgroundImage: 'url(' + 'http://home/bg4.jpg' + ')',
       },
+      nav: {
+        display: 'none',
+      },
+      loftTime: '© 2012 - 2018 Couh'
     }
+  },
+  methods: {
+    menuStatus: function () {
+      // 菜单按钮
+      const node = document.getElementsByClassName('btn')[0];
+      if (node.classList && node.classList.contains('is-open')) {
+        // 隐藏
+        node.classList.remove('is-open');
+        this.nav.display = 'none';
+      }
+      else {
+        // 显示
+        node.classList.add('is-open');
+        this.nav.display = '';
+      }
+    },
+  },
+  created: function () {
+    const currentDate = new Date();
+    const copyRight = '© 2012 - ' + currentDate.getFullYear() + ' Couh';
+    this.loftTime = copyRight;
   },
   mounted: function() {
     const that = this;
@@ -63,8 +126,9 @@ export default {
   }
   .logo {
     position: absolute;
-    left: 5%;
-    top: 5%;
+    z-index: 999;
+    left: 50px;
+    top: 50px;
     font-size: 2em;
   }
   .login {
@@ -90,19 +154,96 @@ export default {
   .login a:hover {
     color: #0071ce;
   }
-  .language {
-    background-image: url('../assets/16px_11px_1.png');
+  .menu-btn {
     display: inline-block;
-    margin: 0 8px;
-    background-position: -16px 0;
-    background-repeat: no-repeat;
-    width: 16px;
-    height: 11px;
+    padding: 0 10px;
+  }
+  .btn {
+    display: inline-block;
+    position: relative;
+    bottom: 3px;
+    width: 20px;
+    height: 2px;
+    background-color: #555;
+    transition: background-color .2s linear;
+  }
+  .btn::before {
+    position: absolute;
+    left: 0;
+    content: '';
+    width: 20px;
+    height: 2px;
+    background: #555;
+    transform: translateY(-6px);
+    transition: transform .2s linear;
+  }
+  .btn::after {
+    position: absolute;
+    left: 0;
+    content: '';
+    width: 20px;
+    height: 2px;
+    background: #555;
+    transform: translateY(6px);
+    transition: transform .2s linear;
+  }
+  .is-open {
+    background-color: rgba(255, 255, 255, 0);
+  }
+  .is-open::before {
+    transform: rotate(-45deg);
+  }
+  .is-open::after {
+    transform: rotate(45deg);
   }
 
+  #nav {
+    position: absolute;
+    top: 0;
+    /*display: none;*/
+    width: 100%;
+    height: 300px;
+    background-color: rgba(247, 247, 247, 0.9);
+  }
+  .menu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 57px;
+  }
+  .menu a {
+    text-decoration: none;
+    padding: 20px;
+    font-size: 1.2em;
+    color: #555;
+  }
+  .about {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 120px;
+  }
+  .links {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 180px;
+  }
+  .links a {
+    text-decoration: none;
+    padding: 10px;
+    line-height: 2em;
+    color: #555;
+  }
+  .copyright {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 270px;
+  }
   .post-simple {
     position: relative;
-    background-image: url('../assets/bg.jpg');
+
     background-color: #f7f7f7;
     background-repeat: no-repeat;
     background-position: center;
