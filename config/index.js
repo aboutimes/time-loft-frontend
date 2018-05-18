@@ -13,18 +13,18 @@ module.exports = {
     proxyTable: {
         // 别名，'^/v1' 重写为 'http://api.timeloft/v1'
         // get('/v1/users') 重写为 get('httt://api.timeloft/v1/users')
-        '/v1': {
+        '/': {
             target: 'http://api.timeloft',
             changeOrigin: true, // 解决跨域
             pathRewrite: {
-                '^/v1': '/v1'
+                '^/': '/'
             }
         }
     },
 
     // Various Dev Server settings
-    host: 'timeloft', // can be overwritten by process.env.HOST
-    port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    host: 'localhost', // can be overwritten by process.env.HOST
+    port: 8082, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,

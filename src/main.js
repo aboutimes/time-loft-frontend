@@ -6,15 +6,20 @@ import router from './router'
 import 'normalize.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueRouter from 'vue-router'
 import Icon from 'vue-awesome/components/Icon'
-import 'vue-awesome/icons/bars'
+import 'vue-awesome/icons/user-circle'
 
 
-
+// 路由跳转
+Vue.use(VueRouter);
+// ajax
 Vue.use(VueAxios, axios);
+// 图标
 Vue.component('icon', Icon);
 
 Vue.config.productionTip = false;
+
 
 /* eslint-disable no-new */
 new Vue({
@@ -22,4 +27,4 @@ new Vue({
   router,
   components: { App },
   template: '<App/>'
-})
+});
