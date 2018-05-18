@@ -59,7 +59,7 @@ export default {
     // that.axios.get('/articles')
     that.axios({
       method: 'get',
-      url: '/articles',//'http://api/timeloft/register'
+      url: '/api/articles',//'http://api/timeloft/register'
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
       }})
@@ -115,9 +115,10 @@ export default {
   .foreword {
     position: absolute;
     width: 40%;
-    height: 36%;
+    height: 40%;
     left: 5%;
     bottom: 10%;
+    overflow: hidden;
     /*background: linear-gradient(to right, rgba(247, 247, 247, 0.8), transparent);*/
     /*background-color: rgba(247, 247, 247, 0.7);*/
   }

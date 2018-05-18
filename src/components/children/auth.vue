@@ -190,7 +190,7 @@
         let addr;   //ajax地址
         let authInfo;   //ajax参数
         if (that.show_register) {   // 注册
-          addr = '/register';
+          addr = '/api/register';
           if (that.email_mobile.indexOf('@')===-1){  // 电话注册
             authInfo = {
               username: that.user_name,
@@ -207,7 +207,7 @@
             };
           }
         }else {  // 登录
-          addr = '/login';
+          addr = '/api/login';
           authInfo = {
             username: that.user_name,
             password: that.user_password,
@@ -244,7 +244,7 @@
         const that = this;
         that.axios({
           method: 'get',
-          url: '/user',  //'http://api/timeloft/register'
+          url: '/api/user',  //'http://api/timeloft/register'
           headers: {
             'X-Requested-With': 'XMLHttpRequest',
             'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('token'),
@@ -263,7 +263,7 @@
         const that = this;
         that.axios({
           method: 'post',
-          url: '/logout',  //'http://api/timeloft/register'
+          url: '/api/logout',  //'http://api/timeloft/register'
           headers: {
             'X-Requested-With': 'XMLHttpRequest',
             'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('token'),

@@ -20,7 +20,8 @@
       // 请求数据
       that.axios({
         method: 'get',
-        url: '/article/'+that.$route.params.id, //'http://api/timeloft/v1/register'
+        // url: '/article/'+that.$route.params.id, //'http://api/timeloft/v1/register'
+        url: '/api/article/'+that.$route.params.id, //'http://api/timeloft/v1/register'
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
           'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('token'),

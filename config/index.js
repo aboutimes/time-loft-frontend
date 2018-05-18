@@ -13,11 +13,12 @@ module.exports = {
     proxyTable: {
         // 别名，'^/v1' 重写为 'http://api.timeloft/v1'
         // get('/v1/users') 重写为 get('httt://api.timeloft/v1/users')
-        '/': {
+        '/api': {
             target: 'http://api.timeloft',
             changeOrigin: true, // 解决跨域
+            secure: false,
             pathRewrite: {
-                '^/': '/'
+                '^/api': ''
             }
         }
     },
@@ -25,7 +26,7 @@ module.exports = {
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
     port: 8082, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
-    autoOpenBrowser: false,
+    autoOpenBrowser: true,
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
