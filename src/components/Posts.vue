@@ -1,5 +1,5 @@
 <template>
-  <div class="homepage">
+  <div id="posts">
     <div class="post-simple" v-if="msg.data" :style="bgSize">
       <div class="foreword-bg">
         <div class="foreword">
@@ -10,11 +10,11 @@
         </div>
       </div>
       <div class="more">
-        <a href="javascript:void(0)" id="opener"></a>
+        <a href="#post-list" id="opener"></a>
       </div>
     </div>
 
-    <div class="post-list" v-if="msg.data">
+    <div id="post-list" v-if="msg.data">
       <div v-for="post in msg.data">
         <h2>
           <!--<router-link :to="{name: 'article', params:{id:article.id}}">-->
@@ -25,81 +25,67 @@
         <p>{{post.content_simple }}</p>
       </div>
     </div>
-    <auth/>
   </div>
 </template>
+
 <script>
-import auth from '@/components/children/auth'
+  export default {
+    name: 'Posts',
+    // 接收父组件实时窗口大小数据
+    props: ['bgWidth', 'bgHeight'],
+    data: function () {
+      return {
+        msg: '',
+        topArticle:'',
+        bgSize:{
+          width: document.documentElement.clientWidth+'px',
+          height: document.documentElement.clientHeight+'px',
+          backgroundImage: '',
+        },
+      }
+    },
+    methods: {
 
-export default {
-  name: 'home',
-  data: function() {
-    return {
-      msg: '',
-      topArticle:'',
-      bgSize:{
-        width: '',
-        height: '',
-        // backgroundImage: '',
-      },
-    }
-  },
-  components: {
-    'auth': auth,
-  },
-  methods: {
-
-  },
-  created: function () {
-
-  },
-  mounted: function() {
-    const that = this;
-    // 初始化请求数据
-    // that.axios.get('/articles')
-    that.axios({
-      method: 'get',
-      url: '/api/articles',//'http://api/timeloft/register'
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-      }})
-      .then(function (res) {
-        // console.log(res.data);
-        that.msg=res.data;
-
-        // 设置置顶文章
-        const len = res.data.data.length;
-        for (let i = 0; i < len; i++){
-          if(res.data.data[i]['is_top']){
-            that.topArticle = res.data.data[i];
-            that.bgSize.backgroundImage = 'url('+res.data.data[i]['background_url']+')';
+    },
+    mounted: function () {
+      const that = this;
+      // 初始化请求数据
+      that.axios({
+        method: 'get',
+        url: '/api/articles',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+        }})
+        .then(function (res) {
+          // console.log(res.data);
+          that.msg=res.data;
+          // 设置置顶文章
+          const len = res.data.data.length;
+          for (let i = 0; i < len; i++){
+            if(res.data.data[i]['is_top']){
+              that.topArticle = res.data.data[i];
+              that.bgSize.backgroundImage = 'url('+res.data.data[i]['background_url']+')';
+            }
           }
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    // 取得初始窗口大小
-    that.bgSize.width = document.documentElement.clientWidth+'px';
-    that.bgSize.height = document.documentElement.clientHeight+'px';
-    // 取得调整后窗口大小
-    window.onresize = function windowResize() {
-      that.bgSize.width = document.documentElement.clientWidth+'px';
-      that.bgSize.height = document.documentElement.clientHeight+'px';
-    };
-  },
-}
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    watch: {
+      bgWidth: function () {
+        this.bgSize.width = this.bgWidth;
+      },
+      bgHeight: function () {
+        this.bgSize.height = this.bgHeight;
+      }
+    }
+  }
 </script>
 
 <style scoped>
-  .homepage {
-    position: relative;
-  }
-
   .post-simple {
     position: relative;
-    background-color: #f7f7f7;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -112,6 +98,13 @@ export default {
     height: 100%;
     background: linear-gradient(to right, rgba(247, 247, 247, 0.9), rgba(255, 255, 255, 0));
   }
+  @media only screen and (max-width: 768px) {
+    .foreword-bg {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(247, 247, 247, 0.9), rgba(255, 255, 255, 0));
+    }
+  }
   .foreword {
     position: absolute;
     width: 40%;
@@ -121,6 +114,16 @@ export default {
     overflow: hidden;
     /*background: linear-gradient(to right, rgba(247, 247, 247, 0.8), transparent);*/
     /*background-color: rgba(247, 247, 247, 0.7);*/
+  }
+  @media only screen and (max-width: 768px) {
+    .foreword {
+      width: 70%;
+      height: 40%;
+      left: 0;
+      right: 0;
+      margin: auto;
+      bottom: 10%;
+    }
   }
   #opener:hover {
     /*-webkit-transition-delay: 0;*/
