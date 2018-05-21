@@ -189,7 +189,20 @@ ul {
     font-size: 1.8rem;
     border-top: 1px solid #f2f2f2;
 }
-
+.search-bar {
+    display: block;
+    width: 150px;
+    height: 30px;
+    line-height: 30px;
+    color: #25283D;
+    margin: 10px auto;
+    border-radius: 15px;
+    outline: none;
+    padding: 0 15px;
+    border: 1px solid #f2f2f2;
+    overflow:hidden;
+}
+.search-bar::placeholder { text-align: center }
 
 .primary-nav > ul a:hover, .primary-nav > ul a.active {
     color: #8F3985;
@@ -231,7 +244,10 @@ ul {
         padding: 0;
         border: none;
     }
-
+    .search-bar {
+        margin: 0;
+    }
+    .search-bar::placeholder { text-align: left; }
 }
 
 .nav-open .primary-nav ul,

@@ -14,7 +14,9 @@
           </span>
         </a> <!-- .nav-trigger -->
         <ul v-show="show_menu">
-          
+          <li>
+            <input type="text" class="search-bar" v-model="keyWord" placeholder="search...">
+          </li>
           <li><a href="javascript:void(0)">Category</a></li>
           <li><a href="javascript:void(0)">Tag</a></li>
           <li><a href="javascript:void(0)">Footprint</a></li>
