@@ -9,11 +9,15 @@ Primary style
 
 html {
     font-size: 62.5%;
+    width: 100%;
+    /*height: 100%;*/
 }
 
 body {
+    width: 100%;
+    /*height: 100%;*/
     font-size: 1.6rem;
-    font-family: "Hiragino Sans GB", "PingFang SC", "Helvetica Neue", Helvetica, Arial, "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    font-family: "PingFang SC", "Helvetica Neue", Helvetica, Arial, "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
     color: #25283D;
     background-color: #ECF0F1;
     -webkit-font-smoothing: antialiased;
@@ -40,10 +44,10 @@ ul {
     position: fixed;
     z-index: 2;
     top: 0;
-    left: 0;
+    /*left: 0;*/
     width: 100%;
     height: 60px;
-    background-color: #ffffff;
+    background-color: #fff;
     /* Force Hardware Acceleration */
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
@@ -203,7 +207,28 @@ ul {
     overflow:hidden;
 }
 .search-bar::placeholder { text-align: center }
+/*头像样式*/
+.avatar {
+    position: absolute;
+    top: -60px;
+    right: 65px;
+    width: 60px;
+    height: 60px;
 
+}
+.avatar a {
+    border: 0 !important;
+    /*width: 60px !important;*/
+    height: 60px !important;
+    line-height: 60px !important;
+    margin: auto;
+}
+.avatar a > img{
+    margin: 10px auto;
+    border-radius: 20px;
+    display: inline-block !important;
+
+}
 .primary-nav > ul a:hover, .primary-nav > ul a.active {
     color: #8F3985;
 }
@@ -248,6 +273,15 @@ ul {
         margin: 0;
     }
     .search-bar::placeholder { text-align: left; }
+    .avatar {
+        position: absolute;
+        top: 8px;
+        margin: auto;
+        right: -50px;
+        width: 60px;
+        height: 60px;
+
+    }
 }
 
 .nav-open .primary-nav ul,

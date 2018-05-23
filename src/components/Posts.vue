@@ -84,6 +84,12 @@
 </script>
 
 <style scoped>
+  #posts {
+    /*width: 100%;*/
+    /*margin-top: 0;*/
+    /*margin-bottom: 80px;*/
+    /*min-height: calc(100vh - 80px);*/
+  }
   .post-simple {
     position: relative;
     background-repeat: no-repeat;
@@ -117,7 +123,7 @@
   }
   @media only screen and (max-width: 768px) {
     .foreword {
-      width: 70%;
+      width: 80%;
       height: 40%;
       left: 0;
       right: 0;

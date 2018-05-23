@@ -1,5 +1,5 @@
 <template>
-  <div class="homepage">
+  <div class="wrapper">
     <header id="auto-hide-header">
       <div class="logo">
         <router-link  to='/'>
@@ -21,45 +21,21 @@
           <li><a href="javascript:void(0)">Tag</a></li>
           <li><a href="javascript:void(0)">Footprint</a></li>
           <li><a href="javascript:void(0)">About</a></li>
-          <li>
+          <li class="avatar">
             <a href="javascript:void(0)">
-              <img src="../assets/avatar.png" alt="Login" width="20em" height="20em">
+              <img src="../assets/avatar.png" alt="Login" width="40px" height="40px">
             </a>
           </li>
         </ul>
       </nav> <!-- .primary-nav -->
-    </header> <!-- .auto-hide-header -->
+    </header>
+     <!-- .auto-hide-header -->
     <!--<div id="auth">-->
-      <!--&lt;!&ndash;<div class="logo"><router-link  to='/'>时光阁楼</router-link></div>&ndash;&gt;-->
       <!--<div class="auth-nav">-->
         <!--<a v-if="!is_login" href="javascript:void(0)" @click="openLogin">登陆</a>-->
         <!--<router-link v-if="is_login" :to="'/user/'+user.id">{{user.name}}</router-link>-->
         <!--<a v-if="!is_login" href="javascript:void(0)" @click="openRegister">注册</a>-->
         <!--<a v-if="is_login" href="javascript:void(0)" @click="logOut">注销</a>-->
-        <!--&lt;!&ndash;<div class="menu-btn" @click="menuStatus">&ndash;&gt;-->
-          <!--&lt;!&ndash;<span :class="{ 'menu-toggle': true, 'is-open': show_menu }"></span>&ndash;&gt;-->
-        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-      <!--</div>-->
-      <!--<div class="menu-nav" v-show="show_menu">-->
-        <!--<div class="menu">-->
-          <!--<a href="javascript:void(0)">首页</a>-->
-          <!--<a href="javascript:void(0)">分类</a>-->
-          <!--<a href="javascript:void(0)">标签</a>-->
-          <!--<a href="javascript:void(0)">足迹</a>-->
-        <!--</div>-->
-        <!--<div class="about">this is about</div>-->
-        <!--<div class="links">-->
-          <!--<a href="http://isujin.com" target="_blank">素錦</a>-->
-          <!--<a href="http://sometime.me" target="_blank">寒塘渡月</a>-->
-          <!--<a href="http://shisanyue.com" target="_blank">拾叁月</a>-->
-          <!--<a href="http://www.lyh2.com" target="_blank">青筑</a>-->
-          <!--<a href="http://mir.no/work" target="_blank">MIR.</a>-->
-          <!--<a href="http://modelo.io" target="_blank">MODELO</a>-->
-          <!--<a href="https://leonax.net" target="_blank">LEONA+</a>-->
-          <!--<a href="http://1416.me" target="_blank">1416教室</a>-->
-          <!--<a href="https://www.fieldevo.com/" target="_blank">Fieldevo</a>-->
-        <!--</div>-->
-        <!--<div class="copyright">{{copyRight}}</div>-->
       <!--</div>-->
       <!--<div class="auth-form" v-show="show_login">-->
         <!--<div class="auth-wrap">-->
@@ -105,7 +81,22 @@
         <!--</div>-->
       <!--</div>-->
     <!--</div>-->
-    <router-view :bgWidth="bgWidth" :bgHeight="bgHeight"></router-view>
+    <router-view :bgWidth="bgWidth" :bgHeight="bgHeight" class="child"></router-view>
+
+    <footer id="footer">
+      <div class="links">
+        <a href="http://isujin.com" target="_blank">素錦</a>
+        <a href="http://sometime.me" target="_blank">寒塘渡月</a>
+        <a href="http://shisanyue.com" target="_blank">拾叁月</a>
+        <a href="http://www.lyh2.com" target="_blank">青筑</a>
+        <a href="http://mir.no/work" target="_blank">MIR.</a>
+        <a href="http://modelo.io" target="_blank">MODELO</a>
+        <a href="https://leonax.net" target="_blank">LEONA+</a>
+        <a href="http://1416.me" target="_blank">1416教室</a>
+        <a href="https://www.fieldevo.com/" target="_blank">Fieldevo</a>
+      </div>
+      <div class="copyright">{{copyRight}}</div>
+    </footer>
   </div>
 </template>
 <script>
@@ -359,9 +350,8 @@ export default {
       headerScroll();
     };
     function headerScroll() {
-      //这里是获取导航栏元素，自行修改
+      //获取导航栏元素
       const header = document.getElementById('auto-hide-header');
-      //165可自行修改，使其在指定高度内滚动时不隐藏
       if (window.scrollY - lastScrollY > 0 && window.scrollY > 165)
       {
         //往下滚动，隐藏导航栏
@@ -374,8 +364,6 @@ export default {
       }
       lastScrollY = window.scrollY;
     }
-
-
   },
   mounted: function () {
     // 初始化请求数据
@@ -389,7 +377,7 @@ export default {
     const that = this
     window.onresize = function () {
       that.handleResize();
-    }
+    };
   },
   watch: {
 
@@ -398,17 +386,14 @@ export default {
 </script>
 
 <style scoped>
-  .homepage {
-    position: relative;
+  .wrapper {
+    /*position: relative;*/
+    width: 100%;
+    /*min-height: 100%;*/
+    padding: 0;
+    margin: 0;
+    /*min-height: calc(100vh - 80px);*/
   }
-  #auth {
-  }
-  /*.logo {*/
-    /*position: absolute;*/
-    /*z-index: 1;*/
-    /*left: 50px;*/
-    /*top: 50px;*/
-  /*}*/
   .auth-nav {
     position: absolute;
     right: 20px;
@@ -434,15 +419,67 @@ export default {
   .auth-nav a:hover {
     color: #0071ce;
   }
-
-  .menu-nav {
-    position: absolute;
-    top: 0;
-    /*display: none;*/
+  /*排除id=posts的元素*/
+  .child:not(#posts) {
     width: 100%;
-    height: 300px;
-    background-color: rgba(247, 247, 247, 0.9);
-    z-index: 1;
+    /*margin-top: 0;*/
+    /*margin-bottom: 80px;*/
+    /*min-height: calc(100vh - 160px);*/
+    margin: 80px auto 0;
+    padding: 20px;
+    min-height: calc(100vh - 180px);
+    /*min-height: calc(100vh - 80px);*/
+  }
+  @media only screen and (min-width: 768px) {
+    .child:not(#posts) {
+      margin: 60px auto 0;
+      min-height: calc(100vh - 120px);
+    }
+  }
+  #footer {
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    background-color: #fff;
+    width: 100%;
+    height: 100px;
+    padding: 5px 5px;
+    margin: 0;
+    /*bottom: 0;*/
+  }
+  .links {
+
+    /*position: absolute;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*top: 180px;*/
+    /*margin: 5px auto;*/
+  }
+  .links a {
+    text-decoration: none;
+    padding: 5px 5px;
+    line-height: 2em;
+    color: #555;
+  }
+  .links a:hover {
+    color: #1abc9c;
+  }
+  .copyright {
+    /*position: absolute;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*top: 270px;*/
+    padding: 0;
+  }
+  @media only screen and (min-width: 768px) {
+    #footer {
+      height: 80px;
+    }
+    .links a {
+      padding: 15px;
+    }
+    .copyright {
+      padding: 10px;
+    }
   }
   .menu {
     position: absolute;
@@ -458,33 +495,7 @@ export default {
   .menu a:hover {
     color: #1abc9c;
   }
-  .about {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 120px;
-  }
-  .links {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 180px;
-  }
-  .links a {
-    text-decoration: none;
-    padding: 10px;
-    line-height: 2em;
-    color: #555;
-  }
-  .links a:hover {
-    color: #1abc9c;
-  }
-  .copyright {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 270px;
-  }
+
   .auth-form {
     position: fixed;
     left: 0;

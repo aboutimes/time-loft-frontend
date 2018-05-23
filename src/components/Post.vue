@@ -38,5 +38,13 @@
 </script>
 
 <style scoped>
+  #post {
+    /*margin-top: 100px;*/
+    /*margin: 80px auto 0;*/
+    /*padding: 20px;*/
+    /*min-height: calc(100vh - 160px);*/
+    /*padding: 20px;*/
+    /*min-height: calc(100vh - 180px);*/
+  }
 
 </style>
