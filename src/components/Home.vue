@@ -34,7 +34,8 @@
           <!--区分登录/未登录-->
           <li v-if="is_login" class="avatar">
             <router-link :to="'/user/'+user.id">
-              <img :src="user.avatar_url" :alt="user.name" width="40px" height="40px">
+              <img v-if="user.avatar_url" :src="user.avatar_url" :alt="user.name" width="40px" height="40px">
+              <img v-else src="../assets/avatar.png" :alt="user.name" width="40px" height="40px">
             </router-link>
             <ul v-if="bgWidth>=default_width">
               <li>

@@ -206,7 +206,8 @@ ul {
     padding: 0 15px;
     border: 1px solid #f2f2f2;
     overflow:hidden;
-    /*background-color: #ffffff;*/
+    /*消除ios safari下input阴影*/
+    -webkit-appearance: none;
 }
 .search-bar::placeholder { text-align: center }
 /*头像样式*/
@@ -238,12 +239,12 @@ ul {
     top: 75px;
     right: 0;
     background-color: #ffffffcf;
-    width: 60px;
-    height: 60px;
     text-align: center;
     visibility: hidden;
     opacity: 0;
     transition: visibility 0.5s, opacity 0.5s linear;
+    width: 60px;
+    height: 60px;
 }
 .avatar:hover ul{
     visibility: visible;
@@ -261,7 +262,7 @@ ul {
 .avatar ul > li > a {
     padding: 0;
     margin: 0;
-    line-height: 30px;
+    line-height: 28px;
 }
 
 .primary-nav > ul a:hover, .primary-nav > ul a.active {
@@ -319,19 +320,8 @@ ul {
     }
     /*二级菜单*/
     .avatar ul {
-        position: absolute;
         top: 75px;
         right: 0;
-        background-color: #ffffffcf;
-        width: 60px;
-        height: 60px;
-        text-align: center;
-    }
-    .avatar ul > li {
-        text-align: center;
-        width: 100%;
-        /*border: 1px solid red;*/
-        line-height: 30px;
     }
 }
 
