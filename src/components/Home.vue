@@ -17,70 +17,101 @@
           <li>
             <input type="text" class="search-bar" v-model="keyWord" placeholder="search...">
           </li>
-          <li><a href="javascript:void(0)">Category</a></li>
+          <li>
+            <a href="javascript:void(0)">Category</a>
+          </li>
           <li><a href="javascript:void(0)">Tag</a></li>
           <li><a href="javascript:void(0)">Footprint</a></li>
           <li><a href="javascript:void(0)">About</a></li>
-          <li class="avatar">
+          <li v-if="bgWidth<default_width">
+            <router-link v-if="is_login" :to="'/user/'+user.id">设置</router-link>
+            <a v-else href="javascript:void(0)" @click="openLogin">登录</a>
+          </li>
+          <li v-if="bgWidth<default_width">
+            <a v-if="is_login" href="javascript:void(0)" @click="logOut">注销</a>
+            <a v-else href="javascript:void(0)" @click="openRegister">注册</a>
+          </li>
+          <!--区分登录/未登录-->
+          <li v-if="is_login" class="avatar">
+            <router-link :to="'/user/'+user.id">
+              <img :src="user.avatar_url" :alt="user.name" width="40px" height="40px">
+            </router-link>
+            <ul v-if="bgWidth>=default_width">
+              <li>
+                <router-link :to="'/user/'+user.id">设置</router-link>
+              </li>
+              <li @click="logOut"><a href="javascript:void(0)">注销</a></li>
+            </ul>
+          </li> <!-- .已登录 -->
+          <li v-else class="avatar">
             <a href="javascript:void(0)">
               <img src="../assets/avatar.png" alt="Login" width="40px" height="40px">
             </a>
-          </li>
+            <ul v-if="bgWidth>=default_width">
+              <li @click="openLogin">登录</li>
+              <li @click="openRegister">注册</li>
+            </ul>
+          </li> <!-- .未登录 -->
         </ul>
       </nav> <!-- .primary-nav -->
     </header>
      <!-- .auto-hide-header -->
-    <!--<div id="auth">-->
+    <div id="auth">
       <!--<div class="auth-nav">-->
         <!--<a v-if="!is_login" href="javascript:void(0)" @click="openLogin">登陆</a>-->
         <!--<router-link v-if="is_login" :to="'/user/'+user.id">{{user.name}}</router-link>-->
         <!--<a v-if="!is_login" href="javascript:void(0)" @click="openRegister">注册</a>-->
         <!--<a v-if="is_login" href="javascript:void(0)" @click="logOut">注销</a>-->
       <!--</div>-->
-      <!--<div class="auth-form" v-show="show_login">-->
-        <!--<div class="auth-wrap">-->
-          <!--<div class="auth-close" @click="closeAuth">&times;</div>-->
-          <!--<div class="auth-title">{{auth_title}}</div>-->
-          <!--<form class="user-info" @submit.prevent="auth">-->
-            <!--<input-->
-              <!--type="text"-->
-              <!--id="auth-name"-->
-              <!--:placeholder="user_name_holder[0]"-->
-              <!--class="auth-input"-->
-              <!--v-model="user_name"-->
-              <!--:style="{border:'1px solid ' + user_name_holder[1]}"-->
-            <!--&gt;-->
-            <!--<input-->
-              <!--v-if="show_register"-->
-              <!--type="text"-->
-              <!--id="email-mobile"-->
-              <!--:placeholder="email_mobile_holder[0]"-->
-              <!--class="auth-input"-->
-              <!--v-model="email_mobile"-->
-              <!--:style="{border:'1px solid ' + email_mobile_holder[1]}"-->
-            <!--&gt;-->
-            <!--<input-->
-              <!--type="password"-->
-              <!--id="auth-password"-->
-              <!--:placeholder="user_password_holder[0]"-->
-              <!--class="auth-input"-->
-              <!--v-model="user_password"-->
-              <!--:style="{border:'1px solid ' + user_password_holder[1]}"-->
-            <!--&gt;-->
-            <!--<input-->
-              <!--v-if="show_register"-->
-              <!--type="password"-->
-              <!--id="password_confirmation"-->
-              <!--:placeholder="password_confirmation_holder[0]"-->
-              <!--class="auth-input"-->
-              <!--v-model="password_confirmation"-->
-              <!--:style="{border:'1px solid ' + password_confirmation_holder[1]}"-->
-            <!--&gt;-->
-            <!--<input type="submit" class="auth-submit auth-input" value="提交">-->
-          <!--</form>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
+      <div class="auth-form" v-show="show_login">
+        <div class="auth-wrap">
+          <div class="auth-switch">
+            <a href="javascript:void(0)" @click="login_register">
+              <icon name="toggle-on" :style="switch_icon"></icon>
+            </a>
+          </div>
+          <div class="auth-close" @click="closeAuth">×</div>
+          <h1 class="auth-title">{{auth_title}}</h1>
+          <form class="user-info" @submit.prevent="auth">
+            <input
+              type="text"
+              id="auth-name"
+              :placeholder="user_name_holder[0]"
+              class="auth-input"
+              v-model="user_name"
+              :style="{border:'1px solid ' + user_name_holder[1]}"
+            >
+            <input
+              v-if="show_register"
+              type="text"
+              id="email-mobile"
+              :placeholder="email_mobile_holder[0]"
+              class="auth-input"
+              v-model="email_mobile"
+              :style="{border:'1px solid ' + email_mobile_holder[1]}"
+            >
+            <input
+              type="password"
+              id="auth-password"
+              :placeholder="user_password_holder[0]"
+              class="auth-input"
+              v-model="user_password"
+              :style="{border:'1px solid ' + user_password_holder[1]}"
+            >
+            <input
+              v-if="show_register"
+              type="password"
+              id="password_confirmation"
+              :placeholder="password_confirmation_holder[0]"
+              class="auth-input"
+              v-model="password_confirmation"
+              :style="{border:'1px solid ' + password_confirmation_holder[1]}"
+            >
+            <input type="submit" class="auth-submit auth-input" value="提交">
+          </form>
+        </div>
+      </div>
+    </div>
     <router-view :bgWidth="bgWidth" :bgHeight="bgHeight" class="child"></router-view>
 
     <footer id="footer">
@@ -121,7 +152,10 @@ export default {
       //搜索关键词
       keyWord: '',
 
-      //注册/登陆
+      //注册/登陆切换按钮
+      switch_icon:{
+        transform: 'rotate(180deg)'
+      },
       user:'',
       is_login: false,
 
@@ -141,12 +175,13 @@ export default {
   methods: {
     handleResize: function () {
       // 窗口变化背景图跟随
-      this.bgWidth = document.documentElement.clientWidth+'px';
-      this.bgHeight = document.documentElement.clientHeight+'px';
+      this.bgWidth = document.documentElement.clientWidth;
+      this.bgHeight = document.documentElement.clientHeight;
       // 根据分辨率判断是否显示菜单
       this.show_menu = document.documentElement.clientWidth >= this.default_width;
       console.log(this.show_menu);
     },
+    //显示/隐藏菜单
     menuStatus: function () {
       // 关闭登陆/注册窗口
       this.closeAuth();
@@ -160,9 +195,16 @@ export default {
       this.user_password='';
       this.password_confirmation='';
     },
+    login_register: function () {
+      if (this.show_register){
+        this.openLogin();
+      }else {
+        this.openRegister();
+      }
+    },
     openLogin: function () {
-      // 如果菜单开着，则关闭
-      if (this.show_menu) {
+      // 移动端下，如果菜单开着，则关闭
+      if (this.show_menu && document.documentElement.clientWidth < 768) {
         this.show_menu = false;
       }
       // 打开登录窗
@@ -177,12 +219,13 @@ export default {
         this.closeAuth();
       }else {
         this.show_login = true;
+        this.switch_icon.transform = 'rotate(180deg)';
         this.auth_title = '欢迎登陆';
       }
     },
     openRegister: function () {
       // 如果菜单开着，则关闭
-      if (this.show_menu) {
+      if (this.show_menu && document.documentElement.clientWidth < 768) {
         this.show_menu = false;
       }
       // 打开注册窗
@@ -193,6 +236,7 @@ export default {
       }else {
         this.show_login = true;
         this.show_register = true;
+        this.switch_icon.transform = 'rotate(0deg)';
         this.auth_title = '欢迎注册';
       }
     },
@@ -299,22 +343,30 @@ export default {
       });
     },
     loadUser: function () {
-      const that = this;
-      that.axios({
-        method: 'get',
-        url: '/api/user',  //'http://api/timeloft/register'
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('token'),
-        },
-      }).then(function (res) {
-        // console.log(res.data.data);
-        that.user = res.data.data;
-        that.is_login = true;
+      //如果已登录，加载用户信息
+      if (localStorage.getItem('token')) {
+        const that = this;
+        that.axios({
+          method: 'get',
+          url: '/api/user',  //'http://api/timeloft/register'
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Authorization': localStorage.getItem('token_type') + ' ' + localStorage.getItem('token'),
+          },
+        }).then(function (res) {
+          // console.log(res.data.data);
+          localStorage.setItem('user_id', res.data.data.id);
+          localStorage.setItem('user_name', res.data.data.name);
+          localStorage.setItem('user_url', res.data.data.user_url);
+          localStorage.setItem('user_avatar', res.data.data.avatar_url);
+          that.user = res.data.data;
+          that.is_login = true;
 
-      }).catch(function (error) {
-        console.log(that.errors);
-      });
+        }).catch(function (error) {
+          console.log(that.errors);
+        });
+      }
+
     },
     logOut: function () {
       // 注销
@@ -364,6 +416,8 @@ export default {
       }
       lastScrollY = window.scrollY;
     }
+
+
   },
   mounted: function () {
     // 初始化请求数据
@@ -371,13 +425,18 @@ export default {
       //加载用户信息
       this.loadUser();
     }
+
     // 取得初始窗口大小
     this.handleResize();
     // 取得调整后窗口大小
-    const that = this
+    const that = this;
     window.onresize = function () {
       that.handleResize();
+      console.log(that.bgWidth);
     };
+
+
+
   },
   watch: {
 
@@ -389,57 +448,34 @@ export default {
   .wrapper {
     /*position: relative;*/
     width: 100%;
-    /*min-height: 100%;*/
+    /*min-height: 100vh;*/
     padding: 0;
     margin: 0;
     /*min-height: calc(100vh - 80px);*/
   }
-  .auth-nav {
-    position: absolute;
-    right: 20px;
-    top: 10px;
-    display: inline-block;
-    padding: 10px;
-    background: rgba(247, 247, 247, 0.4);
-    border-radius: 4px 4px 4px 4px;
-    z-index: 2;
-  }
 
-  .auth-nav:hover {
-    background: rgba(247, 247, 247, 0.7);
-  }
-
-  .auth-nav a {
-    color: #555;
-    padding: 0 10px;
-    text-decoration: none;
-    outline: 0;
-  }
-
-  .auth-nav a:hover {
-    color: #0071ce;
-  }
   /*排除id=posts的元素*/
   .child:not(#posts) {
-    width: 100%;
-    /*margin-top: 0;*/
-    /*margin-bottom: 80px;*/
-    /*min-height: calc(100vh - 160px);*/
     margin: 80px auto 0;
     padding: 20px;
     min-height: calc(100vh - 180px);
-    /*min-height: calc(100vh - 80px);*/
+  }
+  .child {
+    width: 100%;
+    min-height: calc(100vh - 100px);
   }
   @media only screen and (min-width: 768px) {
     .child:not(#posts) {
       margin: 60px auto 0;
-      min-height: calc(100vh - 120px);
+      min-height: calc(100vh - 140px);
+    }
+    .child {
+      min-height: calc(100vh - 80px);
     }
   }
   #footer {
-    /*position: absolute;*/
-    /*bottom: 0;*/
-    background-color: #fff;
+    background-color: #e2e2e2;
+    /*border-top: 1px solid red;*/
     width: 100%;
     height: 100px;
     padding: 5px 5px;
@@ -448,11 +484,6 @@ export default {
   }
   .links {
 
-    /*position: absolute;*/
-    /*left: 0;*/
-    /*right: 0;*/
-    /*top: 180px;*/
-    /*margin: 5px auto;*/
   }
   .links a {
     text-decoration: none;
@@ -464,10 +495,6 @@ export default {
     color: #1abc9c;
   }
   .copyright {
-    /*position: absolute;*/
-    /*left: 0;*/
-    /*right: 0;*/
-    /*top: 270px;*/
     padding: 0;
   }
   @media only screen and (min-width: 768px) {
@@ -481,20 +508,6 @@ export default {
       padding: 10px;
     }
   }
-  .menu {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 57px;
-  }
-  .menu a {
-    text-decoration: none;
-    padding: 20px;
-    color: #555;
-  }
-  .menu a:hover {
-    color: #1abc9c;
-  }
 
   .auth-form {
     position: fixed;
@@ -503,23 +516,44 @@ export default {
     margin: auto;
     top: 0;
     bottom: 0;
-    width: 400px;
+    width: 300px;
     height: 300px;
     background-color: rgba(247, 247, 247, 0.8);
     border-radius: 10px;
+    z-index: 2;
   }
   .auth-wrap {
     position: relative;
+    /*display:table;*/
+  }
+  .auth-switch {
+    position: absolute;
+    left: 25px;
+    top: 25px;
+    z-index: 1;
+  }
+  .auth-switch a {
+    color: #325d72;
+  }
+  .fa-icon {
+    width: auto;
+    height: 25px; /* or any other relative font sizes */
+    /* You would have to include the following two lines to make this work in Safari */
+    max-width: 100%;
+    max-height: 100%;
   }
   .auth-close {
     position: absolute;
-    background-color: #ccc;
-    border-radius: 12px;
+    /*background-color: #ccc;*/
+    /*border-radius: 12px;*/
     width: 24px;
     line-height: 24px;
     right: 25px;
     top: 25px;
+    font-size: 24px;
     z-index: 1;
+    vertical-align:middle;
+    display:table-cell;
   }
   .auth-close:hover {
     color: #0071ce;
@@ -552,7 +586,7 @@ export default {
     width: 200px;
     border: 0;
     padding: 0 0 0 5px;
-    margin: 10px 100px;
+    margin: 10px auto;
     border-radius: 2px;
     outline: none;
   }

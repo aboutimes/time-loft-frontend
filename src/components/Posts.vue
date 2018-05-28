@@ -74,10 +74,10 @@
     },
     watch: {
       bgWidth: function () {
-        this.bgSize.width = this.bgWidth;
+        this.bgSize.width = this.bgWidth + 'px';
       },
       bgHeight: function () {
-        this.bgSize.height = this.bgHeight;
+        this.bgSize.height = this.bgHeight + 'px';
       }
     }
   }
@@ -100,15 +100,15 @@
     -o-background-size: cover;
   }
   .foreword-bg {
-    width: 60%;
+    width: 100%;
     height: 100%;
-    background: linear-gradient(to right, rgba(247, 247, 247, 0.9), rgba(255, 255, 255, 0));
+    background: linear-gradient(to top, rgba(247, 247, 247, 0.9), rgba(255, 255, 255, 0));
   }
-  @media only screen and (max-width: 768px) {
+  @media only screen and (min-width: 768px) {
     .foreword-bg {
-      width: 100%;
+      width: 60%;
       height: 100%;
-      background: linear-gradient(to top, rgba(247, 247, 247, 0.9), rgba(255, 255, 255, 0));
+      background: linear-gradient(to right, rgba(247, 247, 247, 0.9), rgba(255, 255, 255, 0));
     }
   }
   .foreword {

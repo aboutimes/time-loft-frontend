@@ -10,6 +10,7 @@ import VueAxios from 'vue-axios'
 import VueRouter from 'vue-router'
 import Icon from 'vue-awesome/components/Icon'
 import 'vue-awesome/icons/user-circle'
+import 'vue-awesome/icons/toggle-on'
 
 
 // 路由跳转

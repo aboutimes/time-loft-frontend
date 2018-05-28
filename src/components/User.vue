@@ -1,6 +1,7 @@
 <template>
   <div id="user">
-    user
+    <h1>user</h1>
+
   </div>
 </template>
 
@@ -11,6 +12,9 @@
       return {
 
       }
+    },
+    methods: {
+
     },
     mounted: function () {
 
