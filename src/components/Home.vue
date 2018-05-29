@@ -3,7 +3,7 @@
     <header id="auto-hide-header">
       <div class="logo">
         <router-link  to='/'>
-          <img src="../assets/logo.png" alt="时光阁楼" width="128px" height="40px">
+          <img src="../assets/logo.png" alt="时光阁楼">
         </router-link>
       </div>
       <nav class="primary-nav">

@@ -26,7 +26,7 @@ body {
 }
 
 a {
-    color: #8F3985;
+    color: #25283D;
     text-decoration: none;
 }
 ul {
@@ -88,6 +88,8 @@ ul {
 }
 #auto-hide-header .logo a, #auto-hide-header .logo img {
     display: block;
+    width: 128px;
+    height: 40px;
 }
 
 #auto-hide-header .nav-trigger {
@@ -147,6 +149,11 @@ ul {
 @media only screen and (min-width: 768px) {
     #auto-hide-header .nav-trigger {
         display: none;
+    }
+    #auto-hide-header .logo a, #auto-hide-header .logo img {
+        display: block;
+        width: 160px;
+        height: 50px;
     }
 }
 

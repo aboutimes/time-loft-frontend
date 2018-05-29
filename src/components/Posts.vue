@@ -15,14 +15,23 @@
     </div>
 
     <div id="post-list" v-if="msg.data">
-      <div v-for="post in msg.data">
-        <h2>
+      <div class="post-card" v-for="post in msg.data">
+        <!--<span class="post-author">{{post.author}}</span>-->
+        <h1 class="post-title">
           <!--<router-link :to="{name: 'article', params:{id:article.id}}">-->
           <router-link :to="'/post/'+post.id">
             {{post.title}}
           </router-link>
-        </h2>
-        <p>{{post.content_simple }}</p>
+        </h1>
+        <div class="post-time">
+          {{post.write_at | moment("MMMM d, YYYY")}}
+        </div>
+        <div class="post-content">
+          <p>{{post.content_simple }}...</p>
+        </div>
+        <div class="post-img">
+          <img :src="post.background_url" alt="...">
+        </div>
       </div>
     </div>
   </div>
@@ -37,6 +46,7 @@
       return {
         msg: '',
         topArticle:'',
+        date: '',
         bgSize:{
           width: document.documentElement.clientWidth+'px',
           height: document.documentElement.clientHeight+'px',
@@ -104,31 +114,31 @@
     height: 100%;
     background: linear-gradient(to top, rgba(247, 247, 247, 0.9), rgba(255, 255, 255, 0));
   }
+  .foreword {
+    position: absolute;
+    width: 80%;
+    height: 40%;
+    left: 0;
+    right: 0;
+    bottom: 10%;
+    margin: auto;
+    overflow: hidden;
+    /*background: linear-gradient(to right, rgba(247, 247, 247, 0.8), transparent);*/
+    /*background-color: rgba(247, 247, 247, 0.7);*/
+  }
+  .foreword a {
+
+  }
   @media only screen and (min-width: 768px) {
     .foreword-bg {
       width: 60%;
       height: 100%;
       background: linear-gradient(to right, rgba(247, 247, 247, 0.9), rgba(255, 255, 255, 0));
     }
-  }
-  .foreword {
-    position: absolute;
-    width: 40%;
-    height: 40%;
-    left: 5%;
-    bottom: 10%;
-    overflow: hidden;
-    /*background: linear-gradient(to right, rgba(247, 247, 247, 0.8), transparent);*/
-    /*background-color: rgba(247, 247, 247, 0.7);*/
-  }
-  @media only screen and (max-width: 768px) {
     .foreword {
-      width: 80%;
+      width: 40%;
       height: 40%;
-      left: 0;
-      right: 0;
-      margin: auto;
-      bottom: 10%;
+      margin-left: 5%;
     }
   }
   #opener:hover {
@@ -163,6 +173,38 @@
   @keyframes opener {
     100% {
       bottom: 4%
+    }
+  }
+  #post-list {
+    margin-bottom: 30px;
+  }
+  .post-card {
+    width: 90%;
+    margin: 30px auto;
+    padding: 20px;
+    display: inline-block;
+    background-color: #fff;
+    /*box-shadow: 5px 5px 20px #888888;*/
+  }
+  .post-time {
+    text-align: left;
+  }
+  .post-title {
+    text-align: left;
+    /*margin: 5px auto;*/
+  }
+  .post-content {
+    text-align: left;
+    /*min-height: 80px;*/
+  }
+  .post-img img {
+    width: 100%;
+    /*max-height: 300px;*/
+    /*overflow:hidden;*/
+  }
+  @media only screen and (min-width: 768px) {
+    .post-card  {
+      /*width: 50%;*/
     }
   }
 </style>

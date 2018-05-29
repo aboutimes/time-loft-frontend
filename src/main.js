@@ -11,7 +11,16 @@ import VueRouter from 'vue-router'
 import Icon from 'vue-awesome/components/Icon'
 import 'vue-awesome/icons/user-circle'
 import 'vue-awesome/icons/toggle-on'
+// import moment from "moment";
 
+// 时间转换
+// Vue.prototype.$moment = moment;
+const moment = require('moment')
+require('moment/locale/zh-cn')
+
+Vue.use(require('vue-moment'), {
+  moment
+})
 
 // 路由跳转
 Vue.use(VueRouter);
