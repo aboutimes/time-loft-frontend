@@ -15,12 +15,12 @@ import 'vue-awesome/icons/toggle-on'
 
 // 时间转换
 // Vue.prototype.$moment = moment;
-const moment = require('moment')
-require('moment/locale/zh-cn')
+const moment = require('moment');
+require('moment/locale/zh-cn');
 
 Vue.use(require('vue-moment'), {
   moment
-})
+});
 
 // 路由跳转
 Vue.use(VueRouter);

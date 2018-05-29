@@ -6,7 +6,13 @@
           <h1><router-link :to="'/post/'+ topArticle.id">
             {{topArticle.title}}
           </router-link></h1>
-          <h3>{{topArticle.content_simple}}...</h3>
+          <div class="post-info">
+            <span>——{{topArticle.author}}</span>
+            <span>{{topArticle.write_at | moment("MMMM d, YYYY")}}</span>
+          </div>
+          <div class="post-content">
+            <p>{{topArticle.content_simple}}...</p>
+          </div>
         </div>
       </div>
       <div class="more">
@@ -23,8 +29,9 @@
             {{post.title}}
           </router-link>
         </h1>
-        <div class="post-time">
-          {{post.write_at | moment("MMMM d, YYYY")}}
+        <div class="post-info">
+          <span>——{{post.author}}</span>
+          <span>{{post.write_at | moment("MMMM d, YYYY")}}</span>
         </div>
         <div class="post-content">
           <p>{{post.content_simple }}...</p>
@@ -117,17 +124,18 @@
   .foreword {
     position: absolute;
     width: 80%;
-    height: 40%;
+    height: 42%;
     left: 0;
     right: 0;
     bottom: 10%;
     margin: auto;
     overflow: hidden;
+    text-align: left;
     /*background: linear-gradient(to right, rgba(247, 247, 247, 0.8), transparent);*/
     /*background-color: rgba(247, 247, 247, 0.7);*/
   }
-  .foreword a {
-
+  .foreword div > span {
+    /*color: #25283D;*/
   }
   @media only screen and (min-width: 768px) {
     .foreword-bg {
@@ -186,8 +194,12 @@
     background-color: #fff;
     /*box-shadow: 5px 5px 20px #888888;*/
   }
-  .post-time {
+  .post-info {
     text-align: left;
+  }
+  .post-info span{
+    margin-right: 10px;
+    color: #999;
   }
   .post-title {
     text-align: left;

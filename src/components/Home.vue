@@ -180,7 +180,7 @@ export default {
       this.bgHeight = document.documentElement.clientHeight;
       // 根据分辨率判断是否显示菜单
       this.show_menu = document.documentElement.clientWidth >= this.default_width;
-      console.log(this.show_menu);
+      // console.log(this.show_menu);
     },
     //显示/隐藏菜单
     menuStatus: function () {
@@ -356,10 +356,10 @@ export default {
           },
         }).then(function (res) {
           // console.log(res.data.data);
-          localStorage.setItem('user_id', res.data.data.id);
-          localStorage.setItem('user_name', res.data.data.name);
-          localStorage.setItem('user_url', res.data.data.user_url);
-          localStorage.setItem('user_avatar', res.data.data.avatar_url);
+          // localStorage.setItem('user_id', res.data.data.id);
+          // localStorage.setItem('user_name', res.data.data.name);
+          // localStorage.setItem('user_url', res.data.data.user_url);
+          // localStorage.setItem('user_avatar', res.data.data.avatar_url);
           that.user = res.data.data;
           that.is_login = true;
 
@@ -433,7 +433,7 @@ export default {
     const that = this;
     window.onresize = function () {
       that.handleResize();
-      console.log(that.bgWidth);
+      // console.log(that.bgWidth);
     };
 
 
