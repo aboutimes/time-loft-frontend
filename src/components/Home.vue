@@ -114,7 +114,6 @@
       </div>
     </div>
     <router-view :bgWidth="bgWidth" :bgHeight="bgHeight" class="child"></router-view>
-
     <footer id="footer">
       <div class="links">
         <a href="http://isujin.com" target="_blank">素錦</a>
@@ -467,8 +466,8 @@ export default {
   }
   @media only screen and (min-width: 768px) {
     .child:not(#posts) {
-      margin: 60px auto 0;
-      min-height: calc(100vh - 140px);
+      margin: 80px auto 0;
+      min-height: calc(100vh - 160px);
     }
     .child {
       min-height: calc(100vh - 80px);

@@ -1,8 +1,8 @@
 <template>
-  <div id="posts">
-    <div class="post-simple" v-if="msg.data" :style="bgSize">
+  <div id="posts" class="posts" :style="marginTop">
+    <div class="post-simple" v-if="currentPage===1" :style="bgSize">
       <div class="foreword-bg">
-        <div class="foreword">
+        <div class="foreword" v-if="topArticle">
           <h1><router-link :to="'/post/'+ topArticle.id">
             {{topArticle.title}}
           </router-link></h1>
@@ -41,6 +41,51 @@
         </div>
       </div>
     </div>
+    <div id="pagination" v-if="msg.meta"><!-- .分页 -->
+      <ul>
+        <li v-if="currentPage>1"><!-- .前一页 -->
+          <router-link :to="'/?page=' + (currentPage-1)">
+            Pre
+          </router-link>
+        </li>
+        <li><!-- .第一页 -->
+          <router-link :to="'/'">
+            1
+          </router-link>
+        </li>
+        <li v-if="currentPage>=4">
+          <a href="javascript:void(0)">...</a>
+        </li>
+        <li v-if="(currentPage-2)>=1"><!-- .当前页上一页 -->
+          <router-link :to="'/?page=' + (currentPage-1)">
+            {{currentPage-1}}
+          </router-link>
+        </li>
+        <li v-if="currentPage!==1"><!-- .当前页 -->
+          <router-link :to="'/?page=' + currentPage">
+            {{currentPage}}
+          </router-link>
+        </li>
+        <li v-if="currentPage<(msg.meta.last_page-1)"><!-- .当前页下一页 -->
+          <router-link :to="{path: '/', query:{'page': (currentPage+1)}}">
+            {{currentPage+1}}
+          </router-link>
+        </li>
+        <li v-if="currentPage<4 || (msg.meta.last_page-currentPage)>2">
+          <a href="javascript:void(0)">...</a>
+        </li>
+        <li v-if="currentPage < msg.meta.last_page"><!-- .最后一页 -->
+          <router-link :to="'/?page=' + msg.meta.last_page">
+            {{msg.meta.last_page}}
+          </router-link>
+        </li>
+        <li v-if="currentPage < msg.meta.last_page"><!-- .下一页 -->
+          <router-link :to="{path: '/', query:{'page': (currentPage+1)}}">
+            Next
+          </router-link>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -52,42 +97,59 @@
     data: function () {
       return {
         msg: '',
+        //置顶文章
         topArticle:'',
-        date: '',
+        //当前页
+        currentPage: 1,
         bgSize:{
           width: document.documentElement.clientWidth+'px',
           height: document.documentElement.clientHeight+'px',
           backgroundImage: '',
         },
+        marginTop: {
+          margin:0
+        }
       }
     },
     methods: {
+      loadArticle: function () {
+        const that = this;
+        const page = this.$route.query.page ? this.$route.query.page : null;
+        // console.log('page='+page);
+        let addr = '/api/articles';
+        if (page) {
+          addr = '/api/articles?page=' + page;
+        }
+        // 初始化请求数据
+        that.axios({
+          method: 'get',
+          url: addr,
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+          }})
+          .then(function (res) {
+            console.log(res.data);
 
+            that.msg=res.data;
+            that.currentPage = res.data.meta.current_page;
+            console.log('currentPage='+that.currentPage);
+            // 设置置顶文章
+            const len = res.data.data.length;
+            for (let i = 0; i < len; i++){
+              if(res.data.data[i]['is_top']){
+                console.log('is_top');
+                that.topArticle = res.data.data[i];
+                that.bgSize.backgroundImage = 'url('+res.data.data[i]['background_url']+')';
+              }
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
     },
     mounted: function () {
-      const that = this;
-      // 初始化请求数据
-      that.axios({
-        method: 'get',
-        url: '/api/articles',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-        }})
-        .then(function (res) {
-          // console.log(res.data);
-          that.msg=res.data;
-          // 设置置顶文章
-          const len = res.data.data.length;
-          for (let i = 0; i < len; i++){
-            if(res.data.data[i]['is_top']){
-              that.topArticle = res.data.data[i];
-              that.bgSize.backgroundImage = 'url('+res.data.data[i]['background_url']+')';
-            }
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      this.loadArticle();
     },
     watch: {
       bgWidth: function () {
@@ -95,6 +157,16 @@
       },
       bgHeight: function () {
         this.bgSize.height = this.bgHeight + 'px';
+      },
+      '$route': function (to, from) {
+        this.loadArticle();
+      },
+      currentPage: function () {
+        if (this.currentPage!==1) {
+          this.marginTop.margin = '80px auto 0';
+        }else {
+          this.marginTop.margin = '0';
+        }
       }
     }
   }
@@ -184,7 +256,44 @@
     }
   }
   #post-list {
+    margin-top: 30px;
     margin-bottom: 30px;
+  }
+  #pagination {
+    margin-bottom: 30px;
+  }
+  #pagination ul {
+    /*display: inline-block;*/
+  /*padding-left: 0;*/
+    /*margin: 20px 0;*/
+    margin: 0 auto;
+    font-size: 0;
+  }
+  #pagination ul > li {
+    display: inline-block;
+    padding: 0;
+    margin: 5px auto;
+    border: 1px solid #325d72;
+    border-right: none;
+    width: 30px;
+    height: 32px;
+    /*background-color: #325d72;*/
+    /*float: left;*/
+    /*white-space: nowrap;*/
+  }
+  #pagination ul > li:first-child {
+    border-radius: 4px 0 0 4px;
+    width: 42px;
+  }
+  #pagination ul > li:last-child {
+    border-radius: 0 4px 4px 0;
+    border-right: 1px solid #325d72;;
+    width: 42px;
+  }
+  #pagination ul > li > a {
+    /*color: #fff;*/
+    line-height: 32px;
+    font-size: 14px;
   }
   .post-card {
     width: 90%;

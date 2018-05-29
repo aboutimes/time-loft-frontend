@@ -58,6 +58,7 @@
   }
   .post-card {
     width: 100%;
+    min-height: calc(100vh - 300px);
     margin: 30px auto;
     padding: 20px;
     display: inline-block;
@@ -91,7 +92,7 @@
   @media only screen and (min-width: 768px) {
     .post-card {
       width: 90%;
-
+      min-height: calc(100vh - 260px);
     }
   }
 

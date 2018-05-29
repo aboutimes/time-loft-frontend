@@ -14,7 +14,7 @@ export default new VueRouter({
     {
       path: '/',
       // name: 'Home', //有默认子路由需要删除 name
-      component: Home,
+      component: resolve => require(['@/components/Home'], resolve), // 使用懒加载
       children: [
         {
           path: '',
