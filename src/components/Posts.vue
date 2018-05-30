@@ -8,7 +8,7 @@
           </router-link></h1>
           <div class="post-info">
             <span>——{{topArticle.author}}</span>
-            <span>{{topArticle.write_at | moment("MMMM d, YYYY")}}</span>
+            <span>{{topArticle.wrote_at | moment("MMMM d, YYYY")}}</span>
           </div>
           <div class="post-content">
             <p>{{topArticle.content_simple}}...</p>
@@ -31,7 +31,7 @@
         </h1>
         <div class="post-info">
           <span>——{{post.author}}</span>
-          <span>{{post.write_at | moment("MMMM d, YYYY")}}</span>
+          <span>{{post.wrote_at | moment("MMMM d, YYYY")}}</span>
         </div>
         <div class="post-content">
           <p>{{post.content_simple }}...</p>
@@ -61,7 +61,7 @@
             {{currentPage-1}}
           </router-link>
         </li>
-        <li v-if="currentPage!==1"><!-- .当前页 -->
+        <li class="current-page" v-if="currentPage!==1"><!-- .当前页 -->
           <router-link :to="'/?page=' + currentPage">
             {{currentPage}}
           </router-link>
@@ -71,7 +71,7 @@
             {{currentPage+1}}
           </router-link>
         </li>
-        <li v-if="currentPage<4 || (msg.meta.last_page-currentPage)>2">
+        <li v-if="(msg.meta.last_page-currentPage)>2">
           <a href="javascript:void(0)">...</a>
         </li>
         <li v-if="currentPage < msg.meta.last_page"><!-- .最后一页 -->
@@ -142,6 +142,12 @@
                 that.bgSize.backgroundImage = 'url('+res.data.data[i]['background_url']+')';
               }
             }
+            //没有置顶文章则设置顶部边距
+            if (that.topArticle==='') {
+              that.marginTop.margin = '80px auto 0';
+            }else {
+              that.marginTop.margin = '0';
+            }
           })
           .catch(function (error) {
             console.log(error);
@@ -150,13 +156,6 @@
     },
     mounted: function () {
       this.loadArticle();
-
-      //没有置顶文章则设置顶部边距
-      if (this.topArticle==='') {
-        this.marginTop.margin = '80px auto 0';
-      }else {
-        this.marginTop.margin = '0';
-      }
     },
     watch: {
       bgWidth: function () {
@@ -289,9 +288,14 @@
     /*float: left;*/
     /*white-space: nowrap;*/
   }
+  .current-page{
+    /*当前页码高亮*/
+    background-color: #ffc107;
+  }
   #pagination ul > li:first-child {
     border-radius: 4px 0 0 4px;
     width: 42px;
+    /*background-color: #325d72;*/
   }
   #pagination ul > li:last-child {
     border-radius: 0 4px 4px 0;

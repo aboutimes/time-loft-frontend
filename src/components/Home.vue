@@ -49,8 +49,8 @@
               <img src="../assets/avatar.png" alt="Login" width="40px" height="40px">
             </a>
             <ul v-if="bgWidth>=default_width">
-              <li @click="openLogin">登录</li>
-              <li @click="openRegister">注册</li>
+              <li @click="openLogin"><a href="javascript:void(0)">登录</a></li>
+              <li @click="openRegister"><a href="javascript:void(0)">注册</a></li>
             </ul>
           </li> <!-- .未登录 -->
         </ul>

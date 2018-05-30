@@ -7,7 +7,7 @@
       </h1>
       <div class="post-info">
         <span>——{{postDetail.author}}</span>
-        <span>{{postDetail.write_at | moment("MMMM d, YYYY")}}</span>
+        <span>{{postDetail.wrote_at | moment("MMMM d, YYYY")}}</span>
       </div>
       <div class="post-content">
         <p>{{postDetail.content }}</p>
