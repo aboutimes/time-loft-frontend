@@ -1,8 +1,8 @@
 <template>
   <div id="posts" class="posts" :style="marginTop">
-    <div class="post-simple" v-if="currentPage===1" :style="bgSize">
+    <div class="post-simple" v-if="currentPage===1 && topArticle" :style="bgSize">
       <div class="foreword-bg">
-        <div class="foreword" v-if="topArticle">
+        <div class="foreword">
           <h1><router-link :to="'/post/'+ topArticle.id">
             {{topArticle.title}}
           </router-link></h1>
@@ -150,6 +150,13 @@
     },
     mounted: function () {
       this.loadArticle();
+
+      //没有置顶文章则设置顶部边距
+      if (this.topArticle==='') {
+        this.marginTop.margin = '80px auto 0';
+      }else {
+        this.marginTop.margin = '0';
+      }
     },
     watch: {
       bgWidth: function () {
@@ -162,6 +169,7 @@
         this.loadArticle();
       },
       currentPage: function () {
+        //只有第一页显示满屏背景
         if (this.currentPage!==1) {
           this.marginTop.margin = '80px auto 0';
         }else {

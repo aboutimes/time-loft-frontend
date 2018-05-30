@@ -116,15 +116,9 @@
     <router-view :bgWidth="bgWidth" :bgHeight="bgHeight" class="child"></router-view>
     <footer id="footer">
       <div class="links">
-        <a href="http://isujin.com" target="_blank">素錦</a>
-        <a href="http://sometime.me" target="_blank">寒塘渡月</a>
-        <a href="http://shisanyue.com" target="_blank">拾叁月</a>
-        <a href="http://www.lyh2.com" target="_blank">青筑</a>
-        <a href="http://mir.no/work" target="_blank">MIR.</a>
-        <a href="http://modelo.io" target="_blank">MODELO</a>
-        <a href="https://leonax.net" target="_blank">LEONA+</a>
-        <a href="http://1416.me" target="_blank">1416教室</a>
-        <a href="https://www.fieldevo.com/" target="_blank">Fieldevo</a>
+        <a v-for="link in links" :href="link.addr" target="_blank">
+          {{link.title}}
+        </a>
       </div>
       <div class="copyright">{{copyRight}}</div>
     </footer>
@@ -158,6 +152,19 @@ export default {
       },
       user:'',
       is_login: false,
+
+      //友情链接
+      links: [
+        {title:'素錦', addr:'http://isujin.com'},
+        {title:'寒塘渡月', addr:'http://sometime.me'},
+        {title:'拾叁月', addr:'http://shisanyue.com'},
+        {title:'青筑', addr:'http://www.lyh2.com'},
+        {title:'MIR.', addr:'http://mir.no/work'},
+        {title:'MODELO', addr:'http://modelo.io'},
+        {title:'LEONA+', addr:'https://leonax.net'},
+        {title:'1416教室', addr:'http://1416.me'},
+        {title:'Fieldevo', addr:'https://www.fieldevo.com'},
+      ],
 
       auth_title:'',
       user_name:'',
