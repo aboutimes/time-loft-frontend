@@ -332,7 +332,7 @@ export default {
         },
         params: authInfo,
       }).then(function (res) {
-        // console.log(res.data);
+        console.log(res.data);
         // that.user=res.data;
         localStorage.setItem('token', res.data.access_token);
         localStorage.setItem('token_type', res.data.token_type);
@@ -463,9 +463,9 @@ export default {
 
   /*排除id=posts的元素*/
   .child:not(#posts) {
-    margin: 80px auto 0;
+    margin: 60px auto 0;
     padding: 20px;
-    min-height: calc(100vh - 180px);
+    min-height: calc(100vh - 160px);
   }
   .child {
     width: 100%;

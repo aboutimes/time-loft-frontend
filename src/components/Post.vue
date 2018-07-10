@@ -1,13 +1,22 @@
 <template>
   <div id="post">
-
     <div class="post-card" v-if="postDetail">
       <h1 class="post-title">
           {{postDetail.title}}
       </h1>
       <div class="post-info">
-        <span>——{{postDetail.author}}</span>
+        <span>
+          ——
+          <a href="javascript:void(0)">
+            {{postDetail.author}}
+          </a>
+        </span>
         <span>{{postDetail.wrote_at | moment("MMMM d, YYYY")}}</span>
+        <span>
+          <router-link :to="'/post/' + $route.params.id + '/edit'">
+            <icon name="edit"></icon>
+          </router-link>
+        </span>
       </div>
       <div class="post-content">
         <p>{{postDetail.content }}</p>
@@ -21,7 +30,8 @@
     name: 'post',
     data: function () {
       return {
-        postDetail:''
+        postDetail:'',
+
       }
     },
     mounted: function () {
@@ -57,9 +67,10 @@
     margin-bottom: 30px;
   }
   .post-card {
+    /*position: relative;*/
     width: 100%;
-    min-height: calc(100vh - 300px);
-    margin: 30px auto;
+    min-height: calc(100vh - 200px);
+    margin: 0 auto;
     padding: 20px;
     display: inline-block;
     background-color: #fff;
@@ -71,6 +82,12 @@
   .post-info span{
     margin-right: 10px;
     color: #999;
+  }
+  .post-info a {
+    color: #999;
+  }
+  .post-info a:hover {
+    color: #0071cb;
   }
   .post-title {
     text-align: center;
@@ -91,8 +108,9 @@
   }
   @media only screen and (min-width: 768px) {
     .post-card {
-      width: 90%;
-      min-height: calc(100vh - 260px);
+      /*width: 90%;*/
+      /*margin: 0 auto;*/
+      min-height: calc(100vh - 200px);
     }
   }
 

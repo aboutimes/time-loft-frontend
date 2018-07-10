@@ -5,6 +5,7 @@ import NotFound from '@/components/404'
 import Post from '@/components/Post'
 import Posts from '@/components/Posts'
 import User from '@/components/User'
+import PostEdit from '@/components/PostEdit'
 
 Vue.use(VueRouter);
 
@@ -25,6 +26,11 @@ export default new VueRouter({
           path: 'post/:id',
           name: 'Post',
           component: Post,
+        },
+        {
+          path: 'post/:id/edit',
+          name: 'PostEdit',
+          component: PostEdit
         },
         {
           path: '/user/:id',

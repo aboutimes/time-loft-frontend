@@ -45,7 +45,7 @@
       <ul>
         <li v-if="currentPage>1"><!-- .前一页 -->
           <router-link :to="'/?page=' + (currentPage-1)">
-            Pre
+            Prev
           </router-link>
         </li>
         <li><!-- .第一页 -->

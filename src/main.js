@@ -9,9 +9,12 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueRouter from 'vue-router'
 import Icon from 'vue-awesome/components/Icon'
-import 'vue-awesome/icons/user-circle'
+// import 'vue-awesome/icons/user-circle'
 import 'vue-awesome/icons/toggle-on'
+import 'vue-awesome/icons/edit'
+// import 'vue-awesome/icons/save'
 // import moment from "moment";
+
 
 // 时间转换
 // Vue.prototype.$moment = moment;
